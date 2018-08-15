@@ -4,12 +4,10 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"context"
-
-	"golang.org/x/sync/errgroup"
-
-	"github.com/emretiryaki/merkut/pkg/setting"
-	"github.com/emretiryaki/merkut/pkg/log"
+	"os/signal"
+	"syscall"
+	"runtime/trace"
+	"github.com/grafana/grafana/pkg/log"
 )
 
 var version = "1.0.0"
@@ -17,6 +15,7 @@ var commit = "NA"
 
 
 var configFile = flag.String("config","","path config file")
+
 func  main(){
 
 	v := flag.Bool("v", false, "prints current version and exits")
@@ -29,19 +28,32 @@ func  main(){
 		os.Exit(0)
 	}
 
+	server := NewMerkutServer()
 
+	go listenToSystemSignals(server)
+
+	err :=server.Run()
+
+	code :=server.Exit(err)
+
+	trace.Stop()
+
+	log.Close()
+
+	os.Exit(code)
 
 }
 
-type MerkutServerImpl struct {
-	context            context.Context
-	shutdownFn         context.CancelFunc
-	childRoutines      *errgroup.Group
-	log                log.Logger
-	cfg                *setting.Cfg
-	shutdownReason     string
-	shutdownInProgress bool
+func listenToSystemSignals(server *MerkutServerImpl){
+	signalChan := make(chan os.Signal,1)
+	ignoreChan := make(chan os.Signal, 1)
 
-	//RouteRegister routing.RouteRegister `inject:""`
-	//HttpServer    *api.HTTPServer       `inject:""`
+	signal.Notify(ignoreChan, syscall.SIGHUP)
+	signal.Notify(signalChan, os.Interrupt, os.Kill, syscall.SIGTERM)
+
+	select {
+	case sig := <-signalChan:
+		server.Shutdown(fmt.Sprintf("System signal: %s", sig))
+	}
 }
+
