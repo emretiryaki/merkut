@@ -8,6 +8,7 @@ import (
 	"github.com/emretiryaki/merkut/pkg/routing"
 	"github.com/emretiryaki/merkut/pkg/api"
 	"fmt"
+	"github.com/grafana/merkut/pkg/login"
 )
 
 type MerkutServerImpl struct {
@@ -47,7 +48,10 @@ func (m *MerkutServerImpl) Shutdown(reason string)  {
 
 }
 func (m *MerkutServerImpl) Run()  error{
-	return  nil
+
+	m.loadConfiguration()
+	login.Init()
+
 }
 
 func (g *MerkutServerImpl) Exit(reason error) int {
