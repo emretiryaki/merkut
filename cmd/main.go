@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 	"runtime/trace"
-	"github.com/grafana/grafana/pkg/log"
+	"github.com/emretiryaki/merkut/pkg/log"
 )
 
 var version = "1.0.0"
