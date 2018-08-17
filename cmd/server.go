@@ -8,7 +8,7 @@ import (
 	"github.com/emretiryaki/merkut/pkg/routing"
 	"github.com/emretiryaki/merkut/pkg/api"
 	"fmt"
-	"github.com/grafana/merkut/pkg/login"
+	"github.com/emretiryaki/merkut/pkg/login"
 )
 
 type MerkutServerImpl struct {
