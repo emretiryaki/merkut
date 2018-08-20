@@ -8,6 +8,7 @@ import (
 	"syscall"
 	"runtime/trace"
 	"github.com/emretiryaki/merkut/pkg/log"
+	 srv "github.com/emretiryaki/merkut/pkg/server"
 )
 
 var version = "1.0.0"
@@ -15,6 +16,7 @@ var commit = "NA"
 
 
 var configFile = flag.String("config","","path config file")
+var homePath = flag.String("homepath", "", "defaults to working directory")
 
 func  main(){
 
@@ -28,11 +30,11 @@ func  main(){
 		os.Exit(0)
 	}
 
-	server := NewMerkutServer()
+	server := srv.NewMerkutServer()
 
 	go listenToSystemSignals(server)
 
-	err :=server.Run()
+	err :=server.Run(*configFile,*homePath,version,commit)
 
 	code :=server.Exit(err)
 
@@ -44,7 +46,7 @@ func  main(){
 
 }
 
-func listenToSystemSignals(server *MerkutServerImpl){
+func listenToSystemSignals(server *srv.MerkutServerImpl){
 	signalChan := make(chan os.Signal,1)
 	ignoreChan := make(chan os.Signal, 1)
 
