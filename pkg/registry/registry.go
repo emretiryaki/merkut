@@ -1,9 +1,11 @@
 package registry
 
 import (
-	"sort"
 	"context"
-		"reflect"
+	"reflect"
+	"sort"
+
+	"github.com/grafana/grafana/pkg/services/sqlstore/migrator"
 )
 
 type Descriptor struct {
@@ -63,7 +65,14 @@ type BackgroundService interface {
 	Run(ctx context.Context) error
 }
 
+// DatabaseMigrator allows the caller to add migrations to
+// the migrator passed as argument
+type DatabaseMigrator interface {
 
+	// AddMigrations allows the service to add migrations to
+	// the database migrator.
+	AddMigration(mg *migrator.Migrator)
+}
 
 // IsDisabled takes an service and return true if its disabled
 func IsDisabled(srv Service) bool {

@@ -15,7 +15,8 @@ import (
 	"github.com/emretiryaki/merkut/pkg/util"
 	"github.com/emretiryaki/merkut/pkg/log"
 
-	)
+	"github.com/go-macaron/session"
+)
 
 type Scheme string
 
@@ -90,6 +91,10 @@ var (
 	DataProxyWhiteList               map[string]bool
 	DisableBruteForceLoginProtection bool
 	SignoutRedirectUrl      string
+
+	// Session settings.
+	SessionOptions         session.Options
+	SessionConnMaxLifetime int64
 )
 
 type Cfg struct {

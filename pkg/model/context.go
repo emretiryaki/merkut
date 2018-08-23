@@ -1,10 +1,11 @@
 package model
 
 import (
+	"strings"
+
 	session "github.com/emretiryaki/merkut/pkg/services/session"
 	"gopkg.in/macaron.v1"
 	"github.com/emretiryaki/merkut/pkg/log"
-	"strings"
 	"github.com/emretiryaki/merkut/pkg/setting"
 )
 
@@ -30,6 +31,22 @@ type ReqContext struct {
 
 func (ctx *ReqContext) IsApiRequest() bool {
 	return strings.HasPrefix(ctx.Req.URL.Path, "/api")
+}
+
+// Handle handles and logs error by given status.
+func (ctx *ReqContext) Handle(status int, title string, err error) {
+	if err != nil {
+		ctx.Logger.Error(title, "error", err)
+		if setting.Env != setting.PROD {
+			ctx.Data["ErrorMsg"] = err
+		}
+	}
+
+	ctx.Data["Title"] = title
+	ctx.Data["AppSubUrl"] = setting.AppSubUrl
+	ctx.Data["Theme"] = "dark"
+
+	ctx.HTML(status, "error")
 }
 
 func (ctx *ReqContext) JsonApiErr(status int, message string, err error) {

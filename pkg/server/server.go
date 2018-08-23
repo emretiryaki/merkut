@@ -9,6 +9,7 @@ import (
 	"context"
 
 	"golang.org/x/sync/errgroup"
+	"github.com/facebookgo/inject"
 
 	"github.com/emretiryaki/merkut/pkg/setting"
 	"github.com/emretiryaki/merkut/pkg/log"
@@ -18,7 +19,6 @@ import (
 	"github.com/emretiryaki/merkut/pkg/login"
 	"github.com/emretiryaki/merkut/pkg/bus"
 
-	"github.com/facebookgo/inject"
 
 	)
 
