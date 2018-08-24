@@ -3,8 +3,7 @@ package model
 import (
 	"strings"
 
-	session "github.com/emretiryaki/merkut/pkg/services/session"
-	"gopkg.in/macaron.v1"
+		"gopkg.in/macaron.v1"
 	"github.com/emretiryaki/merkut/pkg/log"
 	"github.com/emretiryaki/merkut/pkg/setting"
 )
@@ -18,11 +17,6 @@ const (
 )
 type ReqContext struct {
 	*macaron.Context
-	*SignedInUser
-
-	Session session.SessionStore
-
-	IsSignedIn     bool
 	IsRenderCall   bool
 	AllowAnonymous bool
 	Logger         log.Logger

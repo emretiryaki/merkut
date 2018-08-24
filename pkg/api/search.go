@@ -40,10 +40,8 @@ func Search(c *m.ReqContext) {
 	searchQuery := search.Query{
 		Title:        query,
 		Tags:         tags,
-		SignedInUser: c.SignedInUser,
 		Limit:        limit,
 		IsStarred:    starred == "true",
-		OrgId:        c.OrgId,
 		DashboardIds: dbIDs,
 		Type:         dashboardType,
 		FolderIds:    folderIDs,

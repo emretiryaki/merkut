@@ -33,13 +33,10 @@ type HTTPServer struct {
 
 	RouteRegister routing.RouteRegister `inject:""`
 	Bus           bus.Bus               `inject:""`
-	//RenderService rendering.Service     `inject:""`
 	Cfg           *setting.Cfg          `inject:""`
 }
 func (hs *HTTPServer) Init() error {
 	hs.log = log.New("http.server")
-
-	//hs.streamManager = live.NewStreamManager()
 	hs.macaron = hs.newMacaron()
 	hs.registerRoutes()
 
@@ -47,10 +44,9 @@ func (hs *HTTPServer) Init() error {
 }
 
 func (hs *HTTPServer) newMacaron() *macaron.Macaron {
+
 	macaron.Env = setting.Env
 	m := macaron.New()
-
-	// automatically set HEAD for every GET
 	m.SetAutoHead(true)
 
 	return m
@@ -70,7 +66,6 @@ func (hs *HTTPServer) Run(ctx context.Context) error {
 
 	hs.httpSrv = &http.Server{Addr: listenAddr, Handler: hs.macaron}
 
-	// handle http shutdown on server context done
 	go func() {
 		<-ctx.Done()
 		// Hacky fix for race condition between ListenAndServe and Shutdown
@@ -110,7 +105,6 @@ func (hs *HTTPServer) addMiddlewaresAndStaticRoutes(){
 		Delims:     macaron.Delims{Left: "[[", Right: "]]"},
 	}))
 	m.Use(middleware.GetContextHandler())
-	m.Use(middleware.Sessioner(&setting.SessionOptions, setting.SessionConnMaxLifetime))
 	m.Use(middleware.AddDefaultResponseHeaders())
 
 }

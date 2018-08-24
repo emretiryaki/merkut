@@ -2,7 +2,6 @@ package dto
 
 
 type IndexViewData struct {
-	User                    *CurrentUser
 	Settings                map[string]interface{}
 	AppUrl                  string
 	AppSubUrl               string
@@ -14,4 +13,5 @@ type IndexViewData struct {
 	NewGrafanaVersionExists bool
 	NewGrafanaVersion       string
 	AppName                 string
+	Locale                  string
 }
