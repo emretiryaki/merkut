@@ -15,8 +15,7 @@ import (
 	"github.com/emretiryaki/merkut/pkg/registry"
 	"github.com/emretiryaki/merkut/pkg/bus"
 	"github.com/emretiryaki/merkut/pkg/middleware"
-	"os"
-)
+	)
 
 func init() {
 	registry.Register(&registry.Descriptor{
@@ -85,7 +84,6 @@ func (hs *HTTPServer) Run(ctx context.Context) error {
 	if err == http.ErrServerClosed {
 		hs.log.Debug("server was shutdown")
 	}
-	os.Chmod(setting.SocketPath, 0660)
 	return err
 
 }
@@ -103,7 +101,7 @@ func (hs *HTTPServer) addMiddlewaresAndStaticRoutes(){
 	m := hs.macaron
 
 
-	//m.Use(middleware.Recovery())
+	m.Use(middleware.Recovery())
 
 
 	m.Use(macaron.Renderer(macaron.RenderOptions{
@@ -111,6 +109,7 @@ func (hs *HTTPServer) addMiddlewaresAndStaticRoutes(){
 		IndentJSON: macaron.Env != macaron.PROD,
 		Delims:     macaron.Delims{Left: "[[", Right: "]]"},
 	}))
+	m.Use(middleware.GetContextHandler())
 	m.Use(middleware.Sessioner(&setting.SessionOptions, setting.SessionConnMaxLifetime))
 	m.Use(middleware.AddDefaultResponseHeaders())
 
