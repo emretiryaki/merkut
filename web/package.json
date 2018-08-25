@@ -1,0 +1,30 @@
+{
+  "name": "merkur",
+  "version": "1.0.0",
+  "description": "custom alerts based on the data in the elastic indices.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emretiryaki/merkut.git"
+  },
+  "keywords": [
+    "elastic",
+    "alert",
+    "app"
+  ],
+  "author": "Emre Tiryaki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emretiryaki/merkut/issues"
+  },
+  "homepage": "https://github.com/emretiryaki/merkut#readme",
+  "dependencies": {
+    "@types/react": "^16.4.11",
+    "@types/react-dom": "^16.0.7",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  }
+}
