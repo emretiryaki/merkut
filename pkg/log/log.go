@@ -1,6 +1,7 @@
 package log
 
 import (
+	"fmt"
 	"github.com/inconshreveable/log15"
 	"gopkg.in/ini.v1"
 				)
@@ -34,6 +35,10 @@ func init() {
 	Root.SetHandler(log15.DiscardHandler())
 }
 
+
+func Error(skip int, format string, v ...interface{}) {
+	Root.Error(fmt.Sprintf(format, v...))
+}
 func New(logger string, ctx ...interface{}) Logger {
 	params := append([]interface{}{"logger", logger}, ctx...)
 	return Root.New(params...)

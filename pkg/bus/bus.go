@@ -155,6 +155,10 @@ func (b *InProcBus) AddHandlerCtx(handler HandlerFunc) {
 	b.handlersWithCtx[queryTypeName] = handler
 }
 
+func Publish(msg Msg) error {
+	return globalBus.Publish(msg)
+}
+
 func (b *InProcBus) AddEventListener(handler HandlerFunc) {
 	handlerType := reflect.TypeOf(handler)
 	eventName := handlerType.In(0).Elem().Name()
