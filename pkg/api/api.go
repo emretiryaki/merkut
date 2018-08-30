@@ -17,7 +17,7 @@ func (hs *HTTPServer) registerRoutes() {
 	r.Group("/api", func(apiRoute routing.RouteRegister) {
 
 		apiRoute.Get("/search/", Search)
-
+		apiRoute.Get("/alerts/", GetAlarmList)
 
 	})
 
