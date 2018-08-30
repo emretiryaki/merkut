@@ -42,14 +42,11 @@ type SignedInUser struct {
 	Email          string
 	ApiKeyId       int64
 	OrgCount       int
-	IsGrafanaAdmin bool
+	IsMerkutAdmin bool
 	IsAnonymous    bool
 	LastSeenAt     time.Time
 }
 
-func (u *SignedInUser) ShouldUpdateLastSeenAt() bool {
-	return u.UserId > 0 && time.Since(u.LastSeenAt) > time.Minute*5
-}
 
 func (u *SignedInUser) NameOrFallback() string {
 	if u.Name != "" {

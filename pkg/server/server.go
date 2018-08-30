@@ -1,26 +1,23 @@
 package server
 
 import (
-	"fmt"
+	"context"
 	"flag"
+	"fmt"
+	"net"
 	"os"
 	"time"
-	"net"
-	"context"
 
-	"golang.org/x/sync/errgroup"
 	"github.com/facebookgo/inject"
+	"golang.org/x/sync/errgroup"
 
-	"github.com/emretiryaki/merkut/pkg/setting"
-	"github.com/emretiryaki/merkut/pkg/log"
-	"github.com/emretiryaki/merkut/pkg/routing"
 	"github.com/emretiryaki/merkut/pkg/api"
-	"github.com/emretiryaki/merkut/pkg/registry"
-	"github.com/emretiryaki/merkut/pkg/login"
 	"github.com/emretiryaki/merkut/pkg/bus"
-
-
-	)
+	"github.com/emretiryaki/merkut/pkg/log"
+	"github.com/emretiryaki/merkut/pkg/registry"
+	"github.com/emretiryaki/merkut/pkg/routing"
+	"github.com/emretiryaki/merkut/pkg/setting"
+)
 
 type MerkutServerImpl struct {
 	context            context.Context
@@ -62,7 +59,7 @@ func (m *MerkutServerImpl) Shutdown(reason string)  {
 func (m *MerkutServerImpl) Run(configFile string, homePath string ,version string , commit string)  error{
 
 	m.loadConfiguration(configFile,homePath,version,commit)
-	login.Init()
+
 
 	serviceGraph := inject.Graph{}
 	serviceGraph.Provide(&inject.Object{Value:bus.GetBus()})
@@ -87,7 +84,7 @@ func (m *MerkutServerImpl) Run(configFile string, homePath string ,version strin
 			continue
 		}
 
-		m.log.Info("Initializing" + service.Name)
+		m.log.Info("Initializing " + service.Name)
 
 		if err := service.Instance.Init() ; err != nil{
 			return fmt.Errorf("service init failed : %v", err)

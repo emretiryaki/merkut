@@ -269,7 +269,7 @@ func (ss *SqlStore) readConfig() {
 	ss.dbCfg.ClientKeyPath = sec.Key("client_key_path").String()
 	ss.dbCfg.ClientCertPath = sec.Key("client_cert_path").String()
 	ss.dbCfg.ServerCertName = sec.Key("server_cert_name").String()
-	ss.dbCfg.Path = sec.Key("path").MustString("data/grafana.db")
+	ss.dbCfg.Path = sec.Key("path").MustString("data/merkut.db")
 }
 
 func InitTestDB(t *testing.T) *SqlStore {
@@ -329,7 +329,7 @@ func IsTestDbMySql() bool {
 }
 
 func IsTestDbPostgres() bool {
-	if db, present := os.LookupEnv("GRAFANA_TEST_DB"); present {
+	if db, present := os.LookupEnv("MERKUT_TEST_DB"); present {
 		return db == migrator.POSTGRES
 	}
 

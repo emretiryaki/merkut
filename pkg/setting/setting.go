@@ -170,7 +170,7 @@ func (cfg *Cfg) Load(args *CommandLineArgs) error {
 	// Temporary keep global, to make refactor in steps
 	Raw = cfg.Raw
 
-	ApplicationName = "Merkur"
+	ApplicationName = "Merkut"
 
 
 	Env = iniFile.Section("").Key("app_mode").MustString("development")
@@ -255,7 +255,7 @@ func loadConfiguration(args *CommandLineArgs) (*ini.File, error) {
 
 	// check if config file exists
 	if _, err := os.Stat(defaultConfigFile); os.IsNotExist(err) {
-		fmt.Println("Merkur-server Init Failed: Could not find config defaults, make sure homepath command line parameter is set or working directory is homepath")
+		fmt.Println("Merkut-server Init Failed: Could not find config defaults, make sure homepath command line parameter is set or working directory is homepath")
 		os.Exit(1)
 	}
 

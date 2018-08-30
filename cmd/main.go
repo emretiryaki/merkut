@@ -7,6 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 	"runtime/trace"
+	_ "github.com/emretiryaki/merkut/pkg/services/sqlstore"
 	"github.com/emretiryaki/merkut/pkg/log"
 	 srv "github.com/emretiryaki/merkut/pkg/server"
 )

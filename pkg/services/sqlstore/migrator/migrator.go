@@ -3,7 +3,7 @@ package migrator
 import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-xorm/xorm"
-	"github.com/grafana/grafana/pkg/log"
+	"github.com/emretiryaki/merkut/pkg/log"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
 	"time"
@@ -82,7 +82,7 @@ func (mg *Migrator) Start() error {
 	for _, m := range mg.migrations {
 		_, exists := logMap[m.Id()]
 		if exists {
-			mg.Logger.Debug("Skipping migration: Already executed", "id", m.Id())
+			mg.Logger.Info("Skipping migration: Already executed", "id", m.Id())
 			continue
 		}
 
