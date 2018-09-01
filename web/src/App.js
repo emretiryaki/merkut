@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Navigation from './components/navigation';
-import Alarm from './components/alarm';
-
+import Alert from './components/alertList';
+import AddAlertForm from './components/addAlert'
 class App extends Component {
   render() {
     return (
       <div>
       <Navigation />
-      <Alarm/>
+      <Alert/>
     </div>
     );
   }

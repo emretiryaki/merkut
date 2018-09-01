@@ -95,7 +95,6 @@ func (hs *HTTPServer) applyRoutes() {
 func (hs *HTTPServer) addMiddlewaresAndStaticRoutes(){
 	m := hs.macaron
 
-
 	m.Use(middleware.Recovery())
 
 

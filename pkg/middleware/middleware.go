@@ -24,10 +24,12 @@ func GetContextHandler() macaron.Handler {
 			Logger:         log.New("context"),
 		}
 		ctx.Data["ctx"] = ctx
-
+		c.Header().Add("Access-Control-Allow-Origin","*")
+		c.Header().Add("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE")
 		c.Map(ctx)
 
 
 	}
 }
+
 
