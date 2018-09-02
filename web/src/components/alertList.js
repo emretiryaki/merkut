@@ -42,14 +42,14 @@ class Alert extends React.Component{
         <tbody>
         {(
             alerts.map(alert => {
-              const { id, name, state, comment, lastFired,lastTriggered } = alert;
-              return (  <tr key={id}>
-                <td>{id}</td>
-                <td>{name}</td>
-                <td>{state}</td>
-                <td>{comment}</td>
-                <td>{lastFired}</td>
-                <td>{lastTriggered}</td>
+              const { Id, Name, State, Comment, LastFired,LastTriggered } = alert;
+              return (  <tr key={Id}>
+                <td>{Id}</td>
+                <td>{Name}</td>
+                <td>{State}</td>
+                <td>{Comment}</td>
+                <td>{LastFired}</td>
+                <td>{LastTriggered}</td>
                 </tr>);
             })
           ) }

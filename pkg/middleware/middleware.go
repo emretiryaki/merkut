@@ -1,9 +1,10 @@
 package middleware
 
-import( "gopkg.in/macaron.v1"
-m "github.com/emretiryaki/merkut/pkg/model"
+import( 	"gopkg.in/macaron.v1"
+			m "github.com/emretiryaki/merkut/pkg/model"
 			"github.com/emretiryaki/merkut/pkg/log"
-	)
+		)
+
 
 func AddDefaultResponseHeaders() macaron.Handler {
 	return func(ctx *m.ReqContext) {

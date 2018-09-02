@@ -1,30 +1,19 @@
 package api
 
 import (
+	"github.com/emretiryaki/merkut/pkg/bus"
 	m "github.com/emretiryaki/merkut/pkg/model"
-	"time"
 )
 
-func GetAlarmList(c *m.ReqContext) {
+func GetAlarmList(c *m.ReqContext)  {
 
-	var alarms []*Alarm
+	getalertsQuery := m.GetAllAlertsQuery{}
 
-	alarms = append(alarms, &Alarm{Name:"Test",Comment:"Deneme",Id:1,LastFired:time.Now(),LastTriggered:time.Now().Add(-4),State:"OK"})
-
-	//if err != nil {
-	//	c.JsonApiErr(500, "Failed to get tags from database", err)
-	//	return
-	//}
-	c.JSON(200,alarms )
+	if err := bus.Dispatch(&getalertsQuery); err != nil {
+		c.JsonApiErr(500, "Failed to get alarm list from database", err)
+		return
+	}
+	c.JSON(200,getalertsQuery.Result)
 }
 
-
-type Alarm struct {
-	Name  string `json:"name"`
-	Id    int    `json:"id"`
-	State string  `json:"state"`
-	Comment string  `json:"comment"`
-	LastFired time.Time  `json:"lastFired,omitempty"`
-	LastTriggered time.Time  `json:"lastTriggered,omitempty"`
-}
 

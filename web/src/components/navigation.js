@@ -1,5 +1,5 @@
 import React from 'react';
-//import AddAlertForm from './components/addAlert'
+//import AddAlertForm from '../components/addAlert'
 
 const NavItem = props => {
   const pageURI = window.location.pathname+window.location.search
@@ -58,7 +58,9 @@ class Navigation extends React.Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             
-            <NavItem path="/page2" name="Add" />
+            <NavItem path="/addalert"  name="Add" />
+
+            
             <NavItem path="/page2" name="Delete" />
               {/* <NavDropdown name="Dropdown">
                 <a className="dropdown-item" href="/">Action</a>
