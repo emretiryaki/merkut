@@ -16,4 +16,7 @@ func GetAlarmList(c *m.ReqContext)  {
 	c.JSON(200,getalertsQuery.Result)
 }
 
+func AddAlert(c *m.ReqContext){
+
+}
 

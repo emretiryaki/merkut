@@ -1,5 +1,4 @@
 import React from 'react';
-//import AddAlertForm from '../components/addAlert'
 
 const NavItem = props => {
   const pageURI = window.location.pathname+window.location.search
@@ -50,7 +49,7 @@ class Navigation extends React.Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="/">Home</a>
+        <a className="navbar-brand" href="/">Alert List</a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -58,16 +57,8 @@ class Navigation extends React.Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             
-            <NavItem path="/addalert"  name="Add" />
-
-            
-            <NavItem path="/page2" name="Delete" />
-              {/* <NavDropdown name="Dropdown">
-                <a className="dropdown-item" href="/">Action</a>
-                <a className="dropdown-item" href="/">Another action</a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="/">Something else here</a>
-              </NavDropdown> */}
+            <NavItem path="/addalert"  name="Add Alert" />
+            <NavItem path="/deletealert" name="Delete Alert" />
             
           </ul>
           <form className="form-inline my-2 my-lg-0">
