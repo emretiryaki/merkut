@@ -57,8 +57,8 @@ class Navigation extends React.Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             
-            <NavItem path="/addalert"  name="Add Alert" />
-            <NavItem path="/deletealert" name="Delete Alert" />
+            <NavItem path="/addalert"  name="Add" />
+            <NavItem path="/deletealert" name="Delete" />
             
           </ul>
           <form className="form-inline my-2 my-lg-0">
