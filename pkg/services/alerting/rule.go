@@ -85,6 +85,51 @@ func getTimeDurationStringToSeconds(str string) (int64, error) {
 	return int64(value * multiplier), nil
 }
 
+
+
+func NewRuleFromDBAlert(ruleDef *m.Alert) (*Rule, error) {
+
+	//model := &Rule{}
+	//model.Id = ruleDef.Id
+	//model.OrgId = ruleDef.OrgId
+	//model.DashboardId = ruleDef.DashboardId
+	//model.PanelId = ruleDef.PanelId
+	//model.Name = ruleDef.Name
+	//model.Message = ruleDef.Message
+	//model.Frequency = ruleDef.Frequency
+	//model.State = ruleDef.State
+	//model.NoDataState = m.NoDataOption(ruleDef.Settings.Get("noDataState").MustString("no_data"))
+	//model.ExecutionErrorState = m.ExecutionErrorOption(ruleDef.Settings.Get("executionErrorState").MustString("alerting"))
+	//
+	//for _, v := range ruleDef.Settings.Get("notifications").MustArray() {
+	//	jsonModel := simplejson.NewFromAny(v)
+	//	id, err := jsonModel.Get("id").Int64()
+	//	if err != nil {
+	//		return nil, ValidationError{Reason: "Invalid notification schema", DashboardId: model.DashboardId, Alertid: model.Id, PanelId: model.PanelId}
+	//	}
+	//	model.Notifications = append(model.Notifications, id)
+	//}
+	//
+	//for index, condition := range ruleDef.Settings.Get("conditions").MustArray() {
+	//	conditionModel := simplejson.NewFromAny(condition)
+	//	conditionType := conditionModel.Get("type").MustString()
+	//	factory, exist := conditionFactories[conditionType]
+	//	if !exist {
+	//		return nil, ValidationError{Reason: "Unknown alert condition: " + conditionType, DashboardId: model.DashboardId, Alertid: model.Id, PanelId: model.PanelId}
+	//	}
+	//	queryCondition, err := factory(conditionModel, index)
+	//	if err != nil {
+	//		return nil, ValidationError{Err: err, DashboardId: model.DashboardId, Alertid: model.Id, PanelId: model.PanelId}
+	//	}
+	//	model.Conditions = append(model.Conditions, queryCondition)
+	//}
+	//
+	//if len(model.Conditions) == 0 {
+	//	return nil, fmt.Errorf("Alert is missing conditions")
+	//}
+	return &Rule{}, nil
+}
+
 type ConditionFactory func(model *simplejson.Json, index int) (Condition, error)
 
 var conditionFactories = make(map[string]ConditionFactory)

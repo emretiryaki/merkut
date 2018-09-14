@@ -1,0 +1,70 @@
+package alerting
+
+import (
+	"github.com/emretiryaki/merkut/pkg/log"
+	"strconv"
+	"strings"
+	"time"
+)
+
+type DefaultEvalHandler struct {
+	log             log.Logger
+	alertJobTimeout time.Duration
+}
+
+
+func NewEvalHandler() *DefaultEvalHandler {
+	return &DefaultEvalHandler{
+		log:             log.New("alerting.evalHandler"),
+		alertJobTimeout: time.Second * 5,
+	}
+}
+
+func (e *DefaultEvalHandler) Eval(context *EvalContext) {
+	firing := true
+	noDataFound := true
+	conditionEvals := ""
+
+	for i := 0; i < len(context.Rule.Conditions); i++ {
+
+		conditon := context.Rule.Conditions[i]
+		cr,err := conditon.Eval(context)
+
+		if err != nil {
+			context.Error = err
+		}
+
+		// break if condition could not be evaluated
+		if context.Error != nil {
+			break
+		}
+
+		if i == 0 {
+			firing = cr.Firing
+			noDataFound = cr.NoDataFound
+		}// calculating Firing based on operator
+		if cr.Operator == "or" {
+			firing = firing || cr.Firing
+			noDataFound = noDataFound || cr.NoDataFound
+		} else {
+			firing = firing && cr.Firing
+			noDataFound = noDataFound && cr.NoDataFound
+		}
+
+		if i > 0 {
+			conditionEvals = "[" + conditionEvals + " " + strings.ToUpper(cr.Operator) + " " + strconv.FormatBool(cr.Firing) + "]"
+		} else {
+			conditionEvals = strconv.FormatBool(firing)
+		}
+
+		context.EvalMatches = append(context.EvalMatches, cr.EvalMatches...)
+
+	}
+	context.ConditionEvals = conditionEvals + " = " + strconv.FormatBool(firing)
+	context.Firing = firing
+	context.NoDataFound = noDataFound
+	context.EndTime = time.Now()
+
+	//elapsedTime := context.EndTime.Sub(context.StartTime).Nanoseconds() / int64(time.Millisecond)
+	//metrics.M_Alerting_Execution_Time.Observe(float64(elapsedTime))
+}

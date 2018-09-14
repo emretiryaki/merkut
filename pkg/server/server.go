@@ -17,6 +17,8 @@ import (
 	"github.com/emretiryaki/merkut/pkg/registry"
 	"github.com/emretiryaki/merkut/pkg/routing"
 	"github.com/emretiryaki/merkut/pkg/setting"
+	_ "github.com/emretiryaki/merkut/pkg/services/alerting/notifiers"
+	_ "github.com/emretiryaki/merkut/pkg/services/alerting"
 )
 
 type MerkutServerImpl struct {

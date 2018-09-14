@@ -9,6 +9,13 @@ type Json struct {
 	data interface{}
 }
 
+// New returns a pointer to a new, empty `Json` object
+func New() *Json {
+	return &Json{
+		data: make(map[string]interface{}),
+	}
+}
+
 func (j *Json)  CheckGet(key string) (*Json,bool) {
 	m, err :=  j.Map()
 	if err == nil {
