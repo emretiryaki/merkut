@@ -89,18 +89,16 @@ func getTimeDurationStringToSeconds(str string) (int64, error) {
 
 func NewRuleFromDBAlert(ruleDef *m.Alert) (*Rule, error) {
 
-	//model := &Rule{}
-	//model.Id = ruleDef.Id
-	//model.OrgId = ruleDef.OrgId
-	//model.DashboardId = ruleDef.DashboardId
-	//model.PanelId = ruleDef.PanelId
-	//model.Name = ruleDef.Name
-	//model.Message = ruleDef.Message
-	//model.Frequency = ruleDef.Frequency
+	model := &Rule{}
+	model.Id = ruleDef.Id
+	model.Name = ruleDef.Name
 	//model.State = ruleDef.State
-	//model.NoDataState = m.NoDataOption(ruleDef.Settings.Get("noDataState").MustString("no_data"))
+	//model.Frequency = ruleDef.Frequency //TODO Add
+	//model.Comment = ruleDef.Comment
+	//model.LastFired = LastFired
+	//model.LastTriggered = ruleDef.LastTriggered
 	//model.ExecutionErrorState = m.ExecutionErrorOption(ruleDef.Settings.Get("executionErrorState").MustString("alerting"))
-	//
+
 	//for _, v := range ruleDef.Settings.Get("notifications").MustArray() {
 	//	jsonModel := simplejson.NewFromAny(v)
 	//	id, err := jsonModel.Get("id").Int64()

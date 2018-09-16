@@ -1,0 +1,40 @@
+
+ScheduleType:
+  {
+        hourly
+        daily
+        weekly
+        interval
+
+  }
+
+WhenType:
+  {
+        hourly : {
+              "minute" : 30
+              "minute" : [ 0, 15, 30, 45 ]
+        }
+        daily : {
+              "at" : "17:00"
+              "at" : [ "17:00" , "15.00" ]
+        }
+        weekly :{
+              { "on" : "tuesday", "at" : "noon" }
+        }
+        interval : {
+               "5m"
+        }
+  }
+
+ConditionType:
+    {
+        Operator :{"gte" , "eq" ,"lt", "lte"  }
+    }
+
+Action : {slack, mail}
+
+Field => {query}
+
+Elastic indice => {index name }
+
+

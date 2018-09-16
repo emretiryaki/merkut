@@ -37,12 +37,13 @@ class Alert extends React.Component{
             <th>Comment</th>
             <th>Last Fired</th>
             <th>Last Triggered</th>
+            <th>Indice</th>
           </tr>
         </thead>
         <tbody>
         {(
             alerts.map(alert => {
-              const { Id, Name, State, Comment, LastFired,LastTriggered } = alert;
+              const { Id, Name, State, Comment, LastFired,LastTriggered,Indice } = alert;
               return (  <tr key={Id}>
                 <td>{Id}</td>
                 <td>{Name}</td>
@@ -50,6 +51,7 @@ class Alert extends React.Component{
                 <td>{Comment}</td>
                 <td>{LastFired}</td>
                 <td>{LastTriggered}</td>
+                <td>{Indice}</td>
                 </tr>);
             })
           ) }

@@ -8,6 +8,7 @@ func AddMigrations(mg *Migrator) {
 	addAlarmMigrations(mg)
 	addConditionMigrations(mg)
 	addActionMigrations(mg)
+	addQueryMigrations(mg)
 }
 
 func addMigrationLogMigrations(mg *Migrator) {
@@ -39,12 +40,32 @@ func addAlarmMigrations(mg *Migrator) {
 			{Name: "last_triggered", Type: DB_DateTime, Nullable: true},
 			{Name: "schedule", Type: DB_NVarchar, Length: 50, Nullable: false},
 			{Name: "when", Type: DB_NVarchar, Length: 100, Nullable: false},
+			{Name: "indice", Type: DB_NVarchar, Length: 1000, Nullable: false},
 		},
 		Indices: []*Index{
 			{Cols: []string{"name"}, Type: UniqueIndex},
 		},
 	}
 	mg.AddMigration("create alarms table v1", NewAddTableMigration(alertV1))
+
+}
+
+
+func addQueryMigrations(mg *Migrator) {
+
+	queryV1 := Table{
+		Name: "queries",
+		Columns: []*Column{
+			{Name: "id", Type: DB_BigInt, IsPrimaryKey: true, IsAutoIncrement: true},
+			{Name: "alarm_id", Type: DB_BigInt, Nullable: false},
+			{Name: "field", Type: DB_NVarchar, Length: 100, Nullable: false},
+			{Name: "value", Type: DB_NVarchar, Length: 100, Nullable: false},
+		},
+		Indices: []*Index{
+			{Cols: []string{"alarm_id"}, Type: IndexType},
+		},
+	}
+	mg.AddMigration("create queries table v1", NewAddTableMigration(queryV1))
 
 }
 
@@ -59,7 +80,7 @@ func addConditionMigrations(mg *Migrator) {
 			{Name: "operator", Type: DB_NVarchar, Length: 50, Nullable: false},
 		},
 		Indices: []*Index{
-			{Cols: []string{"alarm_id"}, Type: UniqueIndex},
+			{Cols: []string{"alarm_id"}, Type: IndexType},
 		},
 	}
 	mg.AddMigration("create conditions table v1", NewAddTableMigration(conditionV1))
