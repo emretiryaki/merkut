@@ -9,9 +9,6 @@ import (
 )
 type Rule struct {
 	Id                  int64
-	OrgId               int64
-	DashboardId         int64
-	PanelId             int64
 	Frequency           int64
 	Name                string
 	Message             string
@@ -20,6 +17,7 @@ type Rule struct {
 	State               m.AlertStateType
 	Conditions          []Condition
 	Notifications       []int64
+	Comment             string
 }
 
 type ValidationError struct {
@@ -90,13 +88,19 @@ func getTimeDurationStringToSeconds(str string) (int64, error) {
 func NewRuleFromDBAlert(ruleDef *m.Alert) (*Rule, error) {
 
 	model := &Rule{}
+
 	model.Id = ruleDef.Id
 	model.Name = ruleDef.Name
-	//model.State = ruleDef.State
-	//model.Frequency = ruleDef.Frequency //TODO Add
-	//model.Comment = ruleDef.Comment
-	//model.LastFired = LastFired
-	//model.LastTriggered = ruleDef.LastTriggered
+	model.State = ruleDef.State
+	model.Comment = ruleDef.Comment
+	model.LastFired = ruleDef.LastFired
+	model.LastTriggered = ruleDef.LastTriggered
+	model.Schedule = ruleDef.Schedule
+	model.LastTriggered = ruleDef.LastTriggered
+
+	model.When = ruleDef.When
+	model.Indice = ruleDef.Indice
+
 	//model.ExecutionErrorState = m.ExecutionErrorOption(ruleDef.Settings.Get("executionErrorState").MustString("alerting"))
 
 	//for _, v := range ruleDef.Settings.Get("notifications").MustArray() {
@@ -125,6 +129,16 @@ func NewRuleFromDBAlert(ruleDef *m.Alert) (*Rule, error) {
 	//if len(model.Conditions) == 0 {
 	//	return nil, fmt.Errorf("Alert is missing conditions")
 	//}
+
+	//Id             int64
+	//Name           string
+	//State          AlertStateType
+	//Comment        string
+	//LastFired	   string
+	//LastTriggered  string
+	//Schedule 	   string
+	//When 		   string
+	//Indice 		   string
 	return &Rule{}, nil
 }
 

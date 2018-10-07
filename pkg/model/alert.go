@@ -27,16 +27,32 @@ const   (
 
 
 type Alert struct {
-
 	Id             int64
 	Name           string
-	State          string
+	State          AlertStateType
 	Comment        string
 	LastFired	   string
 	LastTriggered  string
 	Schedule 	   string
 	When 		   string
 	Indice 		   string
+
+}
+
+type AlertWithAllReleatedDatas struct {
+	Id             int64
+	Name           string
+	State          AlertStateType
+	Comment        string
+	LastFired	   string
+	LastTriggered  string
+	Schedule 	   string
+	When 		   string
+	Indice 		   string
+	Actions       []*Action
+	Queries		  []*Query
+	Conditions	  []*Condition
+
 }
 
 

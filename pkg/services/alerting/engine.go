@@ -190,7 +190,6 @@ func (e *AlertingService) processJob(attemptID int, attemptChan chan int, cancel
 		e.evalHandler.Eval(evalContext)
 
 		span.SetTag("alertId", evalContext.Rule.Id)
-		span.SetTag("dashboardId", evalContext.Rule.DashboardId)
 		span.SetTag("firing", evalContext.Firing)
 		span.SetTag("nodatapoints", evalContext.NoDataFound)
 		span.SetTag("attemptID", attemptID)

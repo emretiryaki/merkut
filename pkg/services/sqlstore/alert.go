@@ -20,3 +20,13 @@ func GetAlerts(query *m.GetAllAlertsQuery) error{
 
 }
 
+
+func GetRules(query *m.GetAllAlertsQuery) error{
+
+	var alerts = make([]*m.Alert, 0)
+	err :=x.Sql("select * from alarms").Find(&alerts)
+
+	query.Result = alerts
+	return err
+
+}
