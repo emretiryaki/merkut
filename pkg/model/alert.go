@@ -1,5 +1,7 @@
 package model
 
+import "time"
+
 type AlertStateType string
 type AlertSeverityType string
 type NoDataOption string
@@ -31,27 +33,11 @@ type Alert struct {
 	Name           string
 	State          AlertStateType
 	Comment        string
-	LastFired	   string
-	LastTriggered  string
+	LastFired	   time.Time
+	LastTriggered  time.Time
 	Schedule 	   string
 	When 		   string
 	Indice 		   string
-
-}
-
-type AlertWithAllReleatedDatas struct {
-	Id             int64
-	Name           string
-	State          AlertStateType
-	Comment        string
-	LastFired	   string
-	LastTriggered  string
-	Schedule 	   string
-	When 		   string
-	Indice 		   string
-	Actions       []*Action
-	Queries		  []*Query
-	Conditions	  []*Condition
 
 }
 

@@ -15,3 +15,7 @@ type	 Action struct {
 	Message string
 
 }
+
+type GetAllActionsQuery struct {
+	Result []*Action
+}

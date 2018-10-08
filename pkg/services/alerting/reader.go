@@ -46,15 +46,28 @@ func (arr *DefaultRuleReader)  initReader() {
 
 
 func (arr *DefaultRuleReader) Fetch() []*Rule {
-	cmd := &m.GetAllAlertsQuery{}
 
-	if err := bus.Dispatch(cmd); err != nil {
+	cmdGetAllAlertsQuery := &m.GetAllAlertsQuery{}
+
+	if err := bus.Dispatch(cmdGetAllAlertsQuery); err != nil {
 		arr.log.Error("Could not load alerts", "error", err)
 		return []*Rule{}
 	}
 
+	cmdGetActions :=&m.GetAllActionsQuery{}
+
+	if err := bus.Dispatch(cmdGetActions); err != nil {
+		arr.log.Error("Could not load actions", "error", err)
+		return []*Rule{}
+	}
+
 	res := make([]*Rule, 0)
-	for _, ruleDef := range cmd.Result {
+	for _, ruleDef := range cmdGetAllAlertsQuery.Result {
+
+	    for _,actionItem :=range cmdGetActions.Result{
+
+		}
+
 		if model, err := NewRuleFromDBAlert(ruleDef); err != nil {
 			arr.log.Error("Could not build alert model for rule", "ruleId", ruleDef.Id, "error", err)
 		} else {

@@ -6,6 +6,7 @@ import (
 	"github.com/emretiryaki/merkut/pkg/components/simplejson"
 	m "github.com/emretiryaki/merkut/pkg/model"
 	"strconv"
+	"time"
 )
 type Rule struct {
 	Id                  int64
@@ -18,6 +19,11 @@ type Rule struct {
 	Conditions          []Condition
 	Notifications       []int64
 	Comment             string
+	LastFired           time.Time
+	LastTriggered       time.Time
+	Schedule            string
+	When                string
+	Indice              string
 }
 
 type ValidationError struct {
@@ -96,8 +102,6 @@ func NewRuleFromDBAlert(ruleDef *m.Alert) (*Rule, error) {
 	model.LastFired = ruleDef.LastFired
 	model.LastTriggered = ruleDef.LastTriggered
 	model.Schedule = ruleDef.Schedule
-	model.LastTriggered = ruleDef.LastTriggered
-
 	model.When = ruleDef.When
 	model.Indice = ruleDef.Indice
 
