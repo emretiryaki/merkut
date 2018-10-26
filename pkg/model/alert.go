@@ -42,7 +42,7 @@ type Alert struct {
 }
 
 
-type GetAllAlertsQuery struct {
+type GetAlertsQuery struct {
 	Result []*Alert
 }
 

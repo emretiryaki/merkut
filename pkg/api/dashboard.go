@@ -7,7 +7,7 @@ import (
 
 func GetAlarmList(c *m.ReqContext)  {
 
-	getalertsQuery := m.GetAllAlertsQuery{}
+	getalertsQuery := m.GetAlertsQuery{}
 
 	if err := bus.Dispatch(&getalertsQuery); err != nil {
 		c.JsonApiErr(500, "Failed to get alarm list from database", err)

@@ -47,7 +47,7 @@ func (arr *DefaultRuleReader)  initReader() {
 
 func (arr *DefaultRuleReader) Fetch() []*Rule {
 
-	cmdGetAllAlertsQuery := &m.GetAllAlertsQuery{}
+	cmdGetAllAlertsQuery := &m.GetAlertsQuery{}
 
 	if err := bus.Dispatch(cmdGetAllAlertsQuery); err != nil {
 		arr.log.Error("Could not load alerts", "error", err)
@@ -64,7 +64,8 @@ func (arr *DefaultRuleReader) Fetch() []*Rule {
 	res := make([]*Rule, 0)
 	for _, ruleDef := range cmdGetAllAlertsQuery.Result {
 
-	    //for _,actionItem :=range cmdGetActions.Result{
+
+		//for _,actionItem :=range cmdGetActions.Result{
 		//
 		//}
 
